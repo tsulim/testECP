@@ -2,7 +2,7 @@
 Repo for Enterprise Cloud Project
 
 ## Shortcut commands:
-* npm run dev: watches both express and sass output
+* ```npm run dev```: watches both express and sass output
 
 List of dependencies:
 [express@^4.17.1](https://www.npmjs.com/package/express)
