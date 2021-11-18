@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "watch-express": "nodemon app.js",
+    "watch-sass": "sass --watch sass/main.scss:public/css/main.css",
+    "dev": "concurrently -c yellow,#cc6699 \"npm:watch-*\" -s -k"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,8 @@
     "express": "^4.17.1",
     "express-handlebars": "^6.0.1",
     "express-session": "^1.17.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0"
   }
 }
