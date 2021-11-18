@@ -1,0 +1,200 @@
+$redundant-color: #c0c0c0;
+$secondary-color: #252323;
+$primary-color: #ffffff;
+$nav-fontsize: 1.3em;
+$normal-spacing: 0.5rem 2rem 0.5rem 2rem;
+
+@mixin flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin flex-wrap($x) {
+    -ms-flex-wrap: $x;
+    flex-wrap: $x;
+}   
+
+@mixin flex-justify($x) {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: $x;
+}
+
+header.nav {
+    display: none;
+
+    a.brand {
+        &:not(.collapse) {
+            display: none;
+        };
+    }
+
+    .searchbar {
+        @include flex;
+        @include flex-wrap(nowrap);
+        @include flex-justify(flex-start);
+        flex-grow: 1;
+
+        form {
+            transform: scaleX(1);
+            width: auto;
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+            flex-grow:1;
+            padding-right: 2rem;
+
+            &.collapse {
+                transform: scaleX(0);
+                width: 0;
+                * {
+                    all: unset;
+                }
+
+                .search-icon::before {
+                    all:unset;
+                }
+            }
+
+            .search-input {
+                padding-left: 3rem;
+            }
+
+            .search-icon {
+                position: relative;
+                transition: width 0.3s ease-in-out;
+            }
+        
+            .search-icon::before {
+                font-family: "Material Icons";
+                content: "\e8b6";
+                display: flex;
+                align-items: center;
+                position: absolute;
+                left: 1rem;
+                top:0;
+                bottom:0;
+                z-index: 999;
+                font-size: 1.5rem;
+                color: $secondary-color;
+            }
+        }
+    }
+}
+
+nav.nav {
+    @include flex;
+    @include flex-wrap(wrap);
+    @include flex-justify(space-between);
+    flex-direction: row;
+    position: relative;
+    
+    .top-nav-first-part {
+        @include flex;
+        @include flex-justify(flex-start);
+
+        .navbar {
+            all: unset;
+            @include flex;
+            
+            @include flex-justify(flex-start);
+            list-style: none;
+    
+            li.nav-item {
+                padding: $normal-spacing;
+    
+                .nav-link {
+                    font-size: $nav-fontsize; 
+                    
+                    &.active {
+                        font-weight: bold;
+                    }
+                };
+            }
+        }
+    }
+
+    .top-nav-second-part {
+        @include flex;
+        @include flex-justify(flex-start);
+        flex-grow: 1;
+
+        .search-container {
+            flex-grow: 1;
+        }
+
+        .login-btn {
+            @include flex;
+            @include flex-wrap(nowrap);
+            flex-direction: row;
+            background-color: $secondary-color;
+            padding: $normal-spacing;
+            border-radius: 999rem;
+            color: $primary-color;
+            font-size: $nav-fontsize;
+            margin-left: 2rem;
+        }
+    }
+}
+
+nav.nav,
+header.nav {
+    padding: 2rem 5rem;
+    @media only screen and (max-width: 1024px) {
+        padding: 2rem 2rem;
+    }
+    
+    a {
+        color: $secondary-color;
+        text-decoration: none;
+    }
+
+    a.brand {
+        .nav-icon-sm, .nav-icon-lg{
+            height: 100%;
+        }
+
+        .nav-icon-lg {
+            width: 69px; 
+        }
+
+        .nav-icon-sm {
+            width: 55px;
+        }
+    }
+
+    .search-input {
+        position: relative;
+        width: 100%;
+        padding: $normal-spacing;
+        border-radius: 999rem;
+        border: 1px solid $redundant-color;
+        font-size: $nav-fontsize;
+    
+        &::placeholder,&::-moz-placeholder,&::-webkit-input-placeholder {
+            color: #707070;
+        }
+    
+        &:focus-visible {
+            box-shadow: 0px 3px 6px rgb(0,0,0,0.16);
+            border: 1px solid $redundant-color;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    header.nav {
+        @include flex;
+        @include flex-wrap(wrap);
+        @include flex-justify(space-between);
+        flex-direction: row;
+    }
+
+    nav.nav {
+        display: none;
+    }
+}
+

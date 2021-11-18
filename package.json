@@ -1,0 +1,27 @@
+{
+  "name": "enterprise_cloud_project",
+  "version": "1.0.0",
+  "description": "NFTs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sohweirong/ECP.git"
+  },
+  "author": "ryan_xiujia_yongyudh_weirong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sohweirong/ECP/issues"
+  },
+  "homepage": "https://github.com/sohweirong/ECP#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.1",
+    "express-session": "^1.17.2"
+  }
+}

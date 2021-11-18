@@ -1,0 +1,93 @@
+$redundant-color: #c0c0c0;
+$secondary-color: #252323;
+$primary-color: #ffffff;
+
+@mixin flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin flex-wrap($x) {
+    -ms-flex-wrap: $x;
+    flex-wrap: $x;
+}   
+
+@mixin flex-justify($x) {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: $x;
+}
+
+footer.footer {
+    @include flex();
+    @include flex-wrap(nowrap);
+    @include flex-justify(space-between);
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right:0;
+    width: 100%;
+    background-color: $secondary-color;
+
+    @media only screen and (max-width: 768px) {
+        background-color: $primary-color;
+    }
+
+    div.content {
+        color: $primary-color;
+        padding: 0rem 5rem;
+        @media only screen and (max-width:1024px) {
+            padding: 0rem 2rem;
+        }
+        @media only screen and (max-width: 768px) {
+            display: none;
+        }
+
+        p {
+            color: $redundant-color;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+
+            b {
+                color: $primary-color;
+            }
+        }
+    };
+
+    nav.bottom-nav {
+        display: none;
+
+        @media only screen and (max-width: 768px) {
+            display: grid;
+            width: 100%;
+            height: 3.4rem;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
+        }
+
+        .bottom-nav-item {
+            @include flex;
+            @include flex-wrap(nowrap);
+            justify-content: center;
+            flex-direction: column;
+            text-decoration: none;
+            background-color: $primary-color;
+            color: $secondary-color;
+            width: 100%;
+            height: 100%;
+
+            &.active {
+                background-color: $secondary-color;
+                color: $primary-color;
+            }
+
+            p {
+                all:unset;
+            }
+        }
+    }
+}
