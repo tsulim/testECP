@@ -105,3 +105,4 @@ dist
 
 # Custom
 public/css/*.map
+*.lock
