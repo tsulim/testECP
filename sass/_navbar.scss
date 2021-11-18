@@ -150,19 +150,19 @@ header.nav {
     a {
         color: $secondary-color;
         text-decoration: none;
-    }
 
-    a.brand {
-        .nav-icon-sm, .nav-icon-lg{
-            height: 100%;
-        }
-
-        .nav-icon-lg {
-            width: 69px; 
-        }
-
-        .nav-icon-sm {
-            width: 55px;
+        &.brand {
+            .nav-icon-sm, .nav-icon-lg{
+                height: 100%;
+            }
+    
+            .nav-icon-lg {
+                width: 69px; 
+            }
+    
+            .nav-icon-sm {
+                width: 55px;
+            }
         }
     }
 
