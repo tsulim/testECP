@@ -13,7 +13,7 @@
 </header>
 
 
-<nav class="nav">
+{{!-- <nav class="nav">
     <div class="top-nav-first-part">
         <a class="brand">
             <image class="nav-icon-lg" src="/images/Icon.png" alt="ArTion Icon"/>
@@ -36,4 +36,34 @@
             <span class="material-icons">person</span>&nbsp;&nbsp;Login
         </a>
     </div>
+</nav> --}}
+
+<nav class="navMain">
+    <div>
+        <a href="/">
+            <image class="nav-icon" src="/images/Icon.png" alt="ArTion Icon"/>
+        </a>
+    </div>
+    <div><a href="#Explore" class="exploreBtn">Explore</a></div>
+    <div class="searchBar">
+        <input type="text" name="" id="searchInput" placeholder="Search through our catalogue now" autofocus="">
+    </div>
+    <div class="loginContainer">
+        <button id="openSearchBtn" onclick="openSearch()">
+            <span id="openSearch" class="material-icons toggle-event">search</span>
+        </button>
+
+        <a href="#Login" class="loginBtn">
+            <span class="material-icons">account_circle</span>
+            Login
+        </a>
+    </div>    
 </nav>
+
+<div id="searchModal" class="modal">
+    <div class="modalContent">
+        <div class="modalSearchBar">
+            <input type="text" name="" id="searchInput" placeholder="Search through our catalogue now" autofocus="">
+        </div>
+    </div>
+</div>
