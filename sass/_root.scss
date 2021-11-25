@@ -7,24 +7,18 @@ body {
     padding: 0;
     margin: 0;
     font-family: jubilat, Helvetica Neue, sans-serif;
+}
+
+body {
     color: $secondary-color;
     background-color: $primary-color;
     position: relative;
     min-height: 100vh;
+    max-height: 100%;
 }
 
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-}
-
-input[type=text],
-input[type=tel],
-input[type=password] {
-    color: $secondary-color;
-}
-
-input[type=text]:focus-visible {
-    outline: 0;
 }

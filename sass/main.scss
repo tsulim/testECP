@@ -1,6 +1,11 @@
 @use 'root';
 @use 'navbar';
 @use 'bottomnavbar';
+@use 'form';
+
+main.main {
+    padding-bottom: 3.32rem;
+}
 
 .toggle-search {
     cursor: pointer;
