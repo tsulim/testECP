@@ -7,7 +7,7 @@ body {
 
 body {
   color: #252323;
-  background-color: #ffffff;
+  background-color: #F5F5F5;
   position: relative;
   min-height: 100vh;
   max-height: 100%;
@@ -208,6 +208,228 @@ header.nav .search-input:focus-visible {
   border: 1px solid #c0c0c0;
 }
 
+.navMain {
+  background-color: #F5F5F5;
+  width: 100%;
+  position: relative;
+  padding: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+.navMain:hover {
+  background-color: white;
+  box-shadow: 0px 10px 99px rgba(0, 0, 0, 0.16);
+}
+.navMain .nav-icon {
+  height: 60px;
+  cursor: pointer;
+}
+.navMain .exploreBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: inherit;
+  border: none;
+  margin-left: 3rem;
+  cursor: pointer;
+  color: #252323;
+  text-decoration: none;
+  transition: all 0.3s ease-in;
+}
+.navMain .exploreBtn:hover {
+  color: #70798C;
+}
+.navMain .searchBar {
+  position: relative;
+  width: 100%;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  color: #25232380;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.navMain .searchBar #searchInput {
+  background-image: url(https://www.w3schools.com/howto/searchicon.png);
+  background-position: 18px 10px;
+  background-repeat: no-repeat;
+  padding: 0.5rem 2rem 0.5rem 3rem;
+  border: none;
+  position: relative;
+  width: 100%;
+  font-size: 1.3em;
+  color: #25232380;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-family: "jubilat";
+}
+.navMain .loginContainer {
+  margin-left: 15%;
+  transition: all 0.5s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+}
+.navMain .loginContainer #openSearchBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.navMain .loginContainer #openSearchBtn:hover {
+  color: #70798C;
+}
+.navMain .loginContainer #openSearchBtn #openSearch {
+  display: none;
+}
+.navMain .loginContainer .loginBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .loginBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .profileBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+.modal .modalContent {
+  margin: 10% auto;
+  /* 15% from the top and centered */
+  padding-bottom: 55px;
+  border: none;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+  animation-name: modalOpen;
+  animation-duration: 1.2s;
+}
+.modal .modalContent .modalSearchBar {
+  position: relative;
+  width: 100%;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  color: #25232380;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.modal .modalContent .modalSearchBar #searchInput {
+  background-image: url(https://www.w3schools.com/howto/searchicon.png);
+  background-position: 18px 10px;
+  background-repeat: no-repeat;
+  padding: 0.5rem 2rem 0.5rem 3rem;
+  border: none;
+  position: relative;
+  width: 100%;
+  font-size: 1.3em;
+  color: #25232380;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-family: "jubilat";
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 1360px) {
+  .navMain .loginContainer {
+    margin-left: 10%;
+  }
+  .navMain .loginContainer #openSearchBtn #openSearch {
+    display: none;
+  }
+  .navMain .searchBar {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 1048px) {
+  .navMain {
+    display: inline-flex;
+  }
+  .navMain .searchBar {
+    background-color: transparent;
+    border: none;
+  }
+  .navMain .searchBar #searchInput {
+    display: none;
+  }
+  .navMain .loginContainer {
+    margin-left: 0px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .navMain .loginContainer #openSearchBtn #openSearch {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  .navMain .loginContainer .loginBtn {
+    margin-left: 0px;
+  }
+  .navMain .loginContainer .loginBtn:hover {
+    margin-left: 0px;
+  }
+}
 @media only screen and (max-width: 768px) {
   header.nav {
     display: -webkit-box;
@@ -225,6 +447,14 @@ header.nav .search-input:focus-visible {
   }
 
   nav.nav {
+    display: none;
+  }
+
+  .navMain {
+    display: none;
+  }
+
+  #searchModal {
     display: none;
   }
 }

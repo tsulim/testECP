@@ -1,6 +1,8 @@
 $redundant-color: #c0c0c0;
 $secondary-color: #252323;
 $primary-color: #ffffff;
+$alternate-color: #70798C;
+$background-color: #F5F5F5;
 $nav-fontsize: 1.3em;
 $normal-spacing: 0.5rem 2rem 0.5rem 2rem;
 
@@ -185,6 +187,225 @@ header.nav {
     }
 }
 
+.navMain {
+    background-color: $background-color;
+    width: 100%;
+    position: relative;
+
+    padding: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    &:hover {
+        background-color: white;
+        box-shadow: 0px 10px 99px rgb(0 0 0 / 16%);
+    }
+    .nav-icon {
+        height: 60px;
+        cursor: pointer;
+    }
+    .exploreBtn {
+        font-size: $nav-fontsize;
+        font-family: 'jubilat';
+        background: inherit;
+        border: none;
+        margin-left: 3rem;
+        cursor: pointer;
+        color: $secondary-color;
+        text-decoration: none;
+        transition: all 0.3s ease-in;
+        &:hover {
+            color: $alternate-color;
+        }
+    }
+    .searchBar {
+        position: relative;
+        width: 100%;
+        border-radius: 999rem;
+        border: 1px solid $redundant-color;
+        margin-left: 3rem;
+        color: #25232380;
+        background-color: $primary-color;
+        box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+        display: flex;
+        align-items: center;
+        #searchInput {
+            background-image: url(https://www.w3schools.com/howto/searchicon.png);
+            background-position: 18px 10px;
+            background-repeat: no-repeat;
+            padding: 0.5rem 2rem 0.5rem 3rem;
+            border: none;
+            position: relative;
+            width: 100%;
+            font-size: $nav-fontsize;
+            color: #25232380;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            font-family: 'jubilat';
+        }
+    }
+    .loginContainer {
+        margin-left: 15%;
+        transition: all 0.5s ease-in-out;
+        display: inline-flex;
+        align-items: center;
+        #openSearchBtn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            &:hover {
+                color: $alternate-color;
+            }
+            #openSearch {
+                display: none
+            }
+        }
+        .loginBtn {
+            font-size: $nav-fontsize;
+            font-family: 'jubilat';
+            background: $secondary-color;
+            border: 1px solid $secondary-color;
+            margin-left: 3rem;
+            margin-right: 3rem;
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            border-radius: 999rem;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: $primary-color;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            &:hover {
+                color: $secondary-color;
+                position: relative;
+                border-radius: 999rem;
+                border: 1px solid $redundant-color;
+                margin-left: 3rem;
+                padding: 0.5rem 2rem 0.5rem 2rem;
+                background-color: $primary-color;
+                box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+                display: flex;
+                align-items: center;
+            }
+        }
+        .profileBtn {
+            font-size: $nav-fontsize;
+            font-family: 'jubilat';
+            background: $secondary-color;
+            border: 1px solid $secondary-color;
+            margin-left: 3rem;
+            margin-right: 3rem;
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            border-radius: 999rem;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: $primary-color;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    .modalContent {
+        margin: 10% auto; /* 15% from the top and centered */
+        padding-bottom:55px;
+        border: none;
+        width: 80%; /* Could be more or less, depending on screen size */
+        animation-name: modalOpen;
+        animation-duration: 1.2s;
+        .modalSearchBar {
+            position: relative;
+            width: 100%;
+            border-radius: 999rem;
+            border: 1px solid $redundant-color;
+            color: #25232380;
+            background-color: $primary-color;
+            box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+            display: flex;
+            align-items: center;
+            #searchInput {
+                background-image: url(https://www.w3schools.com/howto/searchicon.png);
+                background-position: 18px 10px;
+                background-repeat: no-repeat;
+                padding: 0.5rem 2rem 0.5rem 3rem;
+              
+                border: none;
+                position: relative;
+                width: 100%;
+                font-size: 1.3em;
+                color: #25232380;
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                font-family: 'jubilat';
+              }
+        }
+    }
+}
+
+@keyframes modalOpen {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+@media only screen and (max-width: 1360px) {
+    .navMain {
+        .loginContainer {
+            margin-left: 10%;
+            #openSearchBtn {
+                #openSearch {
+                    display: none;
+                }
+            }
+        }   
+        .searchBar {
+            display: flex;
+        }
+    }
+}
+  
+@media only screen and (max-width: 1048px) {
+    .navMain {
+        display: inline-flex;
+        .searchBar {
+            background-color: transparent;
+            border: none;
+            #searchInput {
+                display: none;
+            }
+        }
+        .loginContainer {
+            margin-left: 0px;
+            display: inline-flex;
+            align-items: center;
+            #openSearchBtn {
+                #openSearch {
+                    display: inline-block;
+                    margin-right: 1rem;
+                }
+            }
+            .loginBtn {
+                margin-left: 0px;
+                &:hover {
+                    margin-left: 0px;
+                }
+            }
+        }
+    }    
+}
+
 @media only screen and (max-width: 768px) {
     header.nav {
         @include flex;
@@ -196,5 +417,12 @@ header.nav {
     nav.nav {
         display: none;
     }
-}
 
+    .navMain {
+        display: none;
+    }
+
+    #searchModal {
+        display: none;
+    }
+}
