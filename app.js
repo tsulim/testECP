@@ -1,4 +1,5 @@
 // Requried libraries in project
+require("dotenv").config();
 const express = require('express');
 const {engine} = require('express-handlebars');
 const session = require('express-session');

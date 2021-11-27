@@ -24,11 +24,13 @@ $primary-color: #ffffff;
 
 input[type=text],
 input[type=tel],
+input[type=email],
 input[type=password] {
     color: $secondary-color;
 }
 
-input[type=text]:focus-visible {
+input[type=text]:focus-visible,
+input[type=email]:focus-visible {
     outline: 0;
 }
 
@@ -60,7 +62,6 @@ input[type=text]:focus-visible {
     &:last-child {
         margin-bottom: 0;
     }
-    
 }
 
 .form-button {
