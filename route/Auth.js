@@ -9,7 +9,6 @@ const InitS3 = new S3_Client();
 const InitCognito = new Cognito_Client();
 
 const filefilter = (req, file, cb) => {
-    const {email} = req.body;
     const mimetype = file.mimetype;
     const ext = path.extname(file.originalname).toLowerCase();
     var amt,amt_regex;
@@ -58,25 +57,47 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage, fileFilter: filefilter});
 
 router.get("/signin",(req,res) => {
-    res.render('auth/signin');
+    res.render('auth/signin', {
+        title: "ArTion - Sign In"
+    });
 });
 
 router.get("/confirmation", (req,res) => {
-    res.render('auth/confirmation');
+    const {username} = req.query;
+    res.render('auth/verifyemail',{
+        title: "ArTion - Confirmation",
+        username:username
+    });
 });
 
 router.get("/signup",(req,res) => {
-    res.render('auth/signup');
+    res.render('auth/signup', {
+        title: "ArTion - Sign Up",
+    });
 });
 
 router.post("/signin",(req,res) => {
-    res.render('home');
+    const {username, password} = req.body;
+    const params = {
+        username: username,
+        password: password
+    };
+    InitCognito.LoginUser(params).then(resp => {
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+    }).catch(err => {
+        if (err.name === "UserNotConfirmedException") {
+            const formatemail = encodeURIComponent(username);
+            res.redirect("confirmation?username="+formatemail);
+        } else {
+            res.redirect("signin");
+        };
+    });
 });
 
 // Creating cpUpload to allow upload of two files, avatar and other proof
-// Used as middleware
-const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'other_proof', maxCount: 1 }]);
-router.post("/signup", cpUpload, (req,res) => {
+router.post("/signup", upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'other_proof', maxCount: 1 }]), (req,res) => {
     // Extracting form data
     const {email, username, instagram, twitter} = req.body;
     
@@ -109,31 +130,54 @@ router.post("/signup", cpUpload, (req,res) => {
 
     // Setting up form body for cognito to render
     const params = {
-        email: email,
-        preferred_username: username,
+        username: email,
+        nickname: username,
+        password: "P@55w0rd",
         picture: req.files.avatar?`${email}/${req.files.avatar[0].filename}`:"",
         twitter: twitter,
         instagram: instagram, 
+        other_proof: req.files.other_proof?`${email}/${req.files.other_proof[0].filename}`:"",
     };
 
     InitCognito.CreateUser(params).then(resp => {
         if (process.env.NODE_ENV === "dev") {
-            console.log(resp.User.Attributes);
+            console.log(resp);
         };
-        if (resp["$metadata"].httpStatusCode === "200") {
-            res.redirect('auth/signin');
+        if (resp["$metadata"].httpStatusCode === 200) {
+            res.redirect('signin');
         } else {
-            res.render('auth/signup');
+            res.redirect('signup');
         };
     }).catch(err => {
         console.log(err);
-        res.render('auth/signup');
+        res.redirect('signup');
     });
 
 });
 
 router.post("/confirmation", (req,res) => {
-    res.render('auth/confirmation');
+    const {username, otp} = req.body;
+    const params = {
+        username: username,
+        otp: otp
+    };
+    InitCognito.VerifyEmail(params).then(resp=>{
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+        if (resp["$metadata"].httpStatusCode === 200) {
+            res.redirect("signin");
+        } else {
+            const formatemail = encodeURIComponent(username);
+            res.redirect('confirmation?username='+formatemail);
+        }
+    }).catch(err=>{
+        if (err.name === "CodeMismatchException") {
+            console.log(err);
+            const formatemail = encodeURIComponent(username);
+            res.redirect('confirmation?username='+formatemail);
+        };
+    });
 });
 
 

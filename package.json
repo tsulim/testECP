@@ -34,6 +34,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "aws-sdk-client-mock": "^0.5.6",
     "concurrently": "^6.4.0"
   }
 }

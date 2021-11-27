@@ -1,5 +1,16 @@
-<form method="post" action="/auth/signin">
-    <input type="text">
-    <input type="password">
-    <button type="submit">Submit</button>
+<form action="/auth/signin" method="post" autocomplete="off">
+    <div class="sign-form">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-input" name="username" id="username" placeholder="Username" required >
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-input" name="password" id="password" placeholder="Password" >
+        </div>
+        <div class="form-button">
+            <button class="btn btn-secondary" type="reset">Reset</button>
+            <button class="btn btn-primary" type="submit">Sign In</button>
+        </div>
+    </div>
 </form>

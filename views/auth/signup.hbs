@@ -1,8 +1,16 @@
-<form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+<form action="/auth/signup" method="post" autocomplete="off" enctype="multipart/form-data">
     <div class="sign-form">
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" class="form-input" name="email" id="email" placeholder="Email" required >
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-input" name="password" id="password" placeholder="Password" >
+        </div>
+        <div class="form-group">
+            <label for="cfmpassword">Confirm Password:</label>
+            <input type="password" class="form-input" name="cfmpassword" id="cfmpassword" placeholder="Confirm Password" >
         </div>
         <div class="form-group">
             <label for="username">Username:</label>

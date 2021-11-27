@@ -5,6 +5,7 @@ const {
     UserPoolMfaType,
     AttributeDataType,
 } = require('@aws-sdk/client-cognito-identity-provider');
+const crypto = require('crypto');
 
 class InitCognito {
     #_cognito
@@ -21,12 +22,14 @@ class InitCognito {
                             "Exists": false,
                             "UserPoolId": undefined,
                             "UserPoolName": undefined,
+                            "Others": undefined
                         });
                     } else {
                         rs({
                             "Exists": true,
                             "UserPoolId": pool_exists[0].Id,
                             "UserPoolName": pool_exists[0].Name,
+                            "Others": undefined
                         });
                     };
                 } else {
@@ -34,95 +37,71 @@ class InitCognito {
                         "Exists": false,
                         "UserPoolId": undefined,
                         "UserPoolName": undefined,
+                        "Others": undefined
                     });
                 };
             }).catch((err) => {
-                rj(err);
+                rj({
+                    "Exists": false,
+                    "UserPoolId": undefined,
+                    "UserPoolName": undefined,
+                    "Others": err
+                });
+            });
+        });
+    };
+    #GetUserPoolClientInformation = async () => {
+        return await new Promise((rs,rj) => {
+            this.#GetUserPoolInformation().then((res) => {
+                if (res.Exists) {
+                    const params = {
+                        "MaxResults": 2,
+                        "UserPoolId": res.UserPoolId
+                    };
+                    this.#_cognito.listUserPoolClients(params).then(list_res => {
+                        const client_exists = list_res.UserPoolClients.filter(x => x.ClientName === process.env.DevResourceName);
+                        if (client_exists.length < 1) {
+                            rs({
+                                "Exists": false,
+                                "ClientId": undefined,
+                                "UserPoolName": undefined,
+                                "Others": undefined
+                            });
+                        } else {
+                            rs({
+                                "Exists": true,
+                                "ClientId": client_exists[0].ClientId,
+                                "ClientName": client_exists[0].ClientName,
+                                "Others": undefined
+                            });
+                        };
+                    }).catch((err) => {
+                        rj({
+                            "Exists": false,
+                            "ClientId": undefined,
+                            "ClientName": undefined,
+                            "Others": err
+                        });
+                    });
+                } else {
+                    rs({
+                        "Exists": false,
+                        "ClientId": undefined,
+                        "UserPoolName": undefined,
+                        "Others": undefined
+                    });
+                };
+            }).catch((err) => {
+                rj({
+                    "Exists": false,
+                    "ClientId": undefined,
+                    "ClientName": undefined,
+                    "Others": err
+                });
             });
         });
     };
 
-    #CreateUserPool = async () => {
-        return await new Promise((rs, rj) => {
-            const list_params = {
-                "MaxResults": 2
-            };
-            const params = {
-                "AccountRecoverySetting": {
-                    "RecoveryMechanisms": [
-                        {
-                            "Name": RecoveryOptionNameType.VERIFIED_EMAIL,
-                            "Priority": 1
-                        }
-                    ]
-                },
-                "DeviceConfiguration": {
-                    "ChallengeRequiredOnNewDevice": true,
-                    "DeviceOnlyRememberedOnUserPrompt": true,
-                },
-                "Policies": {
-                    "PasswordPolicy": {
-                        "MinimumLength": 8,
-                        "RequireLowercase": true,
-                        "RequireNumbers": true,
-                        "RequireSymbols": true,
-                        "RequireUppercase": true,
-                        "TemporaryPasswordValidityDays": 31
-                    }
-                },
-                "Schema": [
-                    {
-                        "Name": "email",
-                        "Required": true,
-                    },
-                    {
-                        "Name": "preferred_username",
-                        "Required": true,
-                    },
-                    {
-                        "Name": "picture",
-                        "Required": true,
-                    },
-                    {
-                        "AttributeDataType": AttributeDataType.STRING,
-                        "Mutable": true,
-                        "Name": "twitter",
-                    },
-                    {
-                        "AttributeDataType": AttributeDataType.STRING,
-                        "Mutable": true,
-                        "Name": "instagram",
-                    }
-                ],
-                "AliasAttributes": [ AliasAttributeType.EMAIL, AliasAttributeType.PREFERRED_USERNAME ],
-                "UsernameConfiguration": { 
-                    "CaseSensitive": false
-                },
-            };
-            if (process.env.NODE_ENV === "dev") {
-                params["PoolName"] = process.env.DevResourceName;
-            } else {
-                params["PoolName"] = "at_userpool";
-            };
-            this.#GetUserPoolInformation().then(e_res => {
-                if (!e_res.Exists) {
-                    this.#_cognito.createUserPool(params).then((res) => {
-                        rs({
-                            "Exists": true,
-                            "UserPoolId": res.UserPool.Id,
-                            "UserPoolName": res.UserPool.Name,
-                        });
-                    }).catch((err) => {
-                        rj(err);
-                    });
-                } else {
-                    rs(e_res);
-                };
-            }).catch(err => {
-                rj(err);
-            });
-        });
-    };
     constructor() {
         this.#_cognito = new CognitoIdentityProvider({
             credentials: {
@@ -131,29 +110,20 @@ class InitCognito {
             },
             region: "ap-southeast-1",
         });
-        this.#CreateUserPool().then(cup_res => {
-            if (cup_res.Exists === false) {
-                throw new Error(cb_res);
-            };
-        }).catch(err => {
-            console.log("Error at Create User Pool", err);
-        });
     };
 
     CreateUser = async (body) => {
         return await new Promise ((rs,rj) => {
-            this.#GetUserPoolInformation().then((res) => {
+            this.#GetUserPoolClientInformation().then(res => {
                 if (res.Exists) {
                     const params = {
-                        "Username": body.preferred_username,
+                        "ClientId": res.ClientId,
+                        "Username": body.username,
+                        "Password": body.password,
                         "UserAttributes": [
                             { 
-                                "Name": "email",
-                                "Value": body.email,
-                            },
-                            { 
-                                "Name": "preferred_username",
-                                "Value": body.preferred_username,
+                                "Name": "nickname",
+                                "Value": body.nickname,
                             },
                             {
                                 "Name": "picture",
@@ -166,20 +136,69 @@ class InitCognito {
                             {
                                 "Name": "custom:instagram",
                                 "Value": body.instagram,
+                            },
+                            {
+                                "Name": "custom:other_proof",
+                                "Value": body.other_proof
                             }
-
-                        ],
-                        "UserPoolId": res.UserPoolId,
-                        "DesiredDeliveryMediums": ["EMAIL"],
-                        "ForceAliasCreation": false,
+                        ]
                     };
-                    this.#_cognito.adminCreateUser(params).then(res => {
+                    this.#_cognito.signUp(params).then((res) => {
                         rs(res);
-                    }).catch(err => {
+                    }).catch((err) => {
                         rj(err);
                     });
                 } else {
-                    rs(res);
+                    rj({"$metadata": {"status": 402}});
+                };
+            }).catch(err => {
+                rj(err);
+            });
+        });
+    };
+
+    LoginUser = async (body) => {
+        return await new Promise((rs,rj) => {
+            this.#GetUserPoolClientInformation().then(res => {
+                if (res.Exists) {
+                    const params = {
+                        "AuthParameters": {
+                            "USERNAME": body.username,
+                            "PASSWORD": body.password
+                        },
+                        "AuthFlow": "USER_PASSWORD_AUTH",
+                        "ClientId": res.ClientId
+                    };
+                    this.#_cognito.initiateAuth(params).then((res) => {
+                        rs(res);
+                    }).catch((err) => {
+                        rj(err);
+                    });
+                } else {
+                    rj({"$metadata": {"status": 402}});
+                };
+            }).catch(err => {
+                rj(err);
+            });
+        });
+    };
+
+    VerifyEmail = async (body) => {
+        return await new Promise((rs,rj) => {
+            this.#GetUserPoolClientInformation().then(res => {
+                if (res.Exists) {
+                    const params = {
+                        "Username": body.username,
+                        "ClientId": res.ClientId,
+                        "ConfirmationCode": body.otp
+                    };
+                    this.#_cognito.confirmSignUp(params).then((res) => {
+                        rs(res);
+                    }).catch((err) => {
+                        rj(err);
+                    });
+                } else {
+                    rj({"$metadata": {"status": 402}});
                 };
             }).catch(err => {
                 rj(err);
