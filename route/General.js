@@ -12,6 +12,7 @@ router.get(['/gallery'],(req,res) => {
         .catch(err => console.log(err))
         .finally(images => {
             res.render('general/gallery', {
+                cloudfront: process.env.CLOUDFRONT,
                 images: images
             });
         })
