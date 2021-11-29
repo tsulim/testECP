@@ -106,3 +106,5 @@ dist
 # Custom
 yarn.lock
 public/css/main.css.map
+
+# DB config
