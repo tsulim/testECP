@@ -1,12 +1,18 @@
-<form action="/auth/confirmation" method="post" autocomplete="off">
-    <div class="sign-form">
-        <input type="text" class="form-input" name="username" id="username" placeholder="Username" value="{{#if username}}{{username}}{{/if}}" hidden required >
+<div class="sign-form">
+    <form action="/auth/confirmation/{{type}}" method="post" autocomplete="off">
+        {{>_formerrmsg}}
+        {{#if username}}
+        <input type="text" class="form-input" name="username" id="username" value="{{username}}" hidden required />
+        {{/if}}
+        {{#if token}}
+        <input type="text" class="form-input" name="token" id="token" value="{{token}}" hidden required />
+        {{/if}}
         <div class="form-group">
             <label for="otp">OTP:</label>
-            <input type="text" class="form-input" name="otp" id="otp" placeholder="otp" required >
+            <input type="text" class="form-input" name="otp" id="otp" required >
         </div>
         <div class="form-button">
             <button class="btn btn-primary" type="submit">Verify</button>
         </div>
-    </div>
-</form>
+    </form>
+</div>

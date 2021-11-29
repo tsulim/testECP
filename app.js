@@ -35,6 +35,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/",GeneralRoute);
 app.use("/auth",AuthRoute);
 
+app.use("*",(req,res) => {
+    res.status(404).render("error/404",{
+        status: 404,
+        subject: "It's empty here...",
+        message: "...where could it be?"
+    });
+});
+
 app.listen(port, () => {
     console.warn(`Application started at http://localhost:${port}`);
 });

@@ -10,7 +10,7 @@ class InitS3 {
                 accessKeyId: process.env.AWS_ACCESS_KEY,
                 secretAccessKey: process.env.AWS_SECRET_KEY
             },
-            region: "ap-southeast-1",
+            region: process.env.Region,
         });
     };
 
@@ -25,7 +25,7 @@ class InitS3 {
             if (process.env.NODE_ENV === "dev") {
                 params["Bucket"] = process.env.DevResourceName;
             } else {
-                params["Bucket"] = "at_bucket";
+                params["Bucket"] = "ArTion-Bucket";
             };
             this.#_s3.putObject(params).then((res) => {
                 rs(res);
@@ -33,7 +33,25 @@ class InitS3 {
                 rj(err);
             });
         });
-    }
+    };
+
+    DeleteFile = async () => {
+        return await new Promise((rs,rj) => {
+            var params = {
+                Key: key_name_str,
+            };
+            if (process.env.NODE_ENV === "dev") {
+                params["Bucket"] = process.env.DevResourceName;
+            } else {
+                params["Bucket"] = "ArTion-Bucket";
+            };
+            this.#_s3.deleteObject(params).then((res) => {
+                rs(res);
+            }).catch((err) => {
+                rj(err);
+            });
+        });
+    };
 };
 
 module.exports = InitS3;

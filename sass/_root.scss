@@ -1,6 +1,7 @@
 $redundant-color: #c0c0c0;
 $secondary-color: #252323;
 $primary-color: #ffffff;
+$alternate-color: #70798C;
 $background-color: #F5F5F5;
 
 html,
@@ -22,4 +23,18 @@ body {
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+h1,p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+a {
+    color: $secondary-color;
+    transition: color 0.3s ease-in;
+}
+
+a:hover {
+    color: $alternate-color;
 }

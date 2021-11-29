@@ -1,0 +1,127 @@
+$redundant-color: #c0c0c0;
+$secondary-color: #252323;
+$primary-color: #ffffff;
+$alternate-color: #70798C;
+$background-color: #F5F5F5;
+$warning-color: #FFCC00;
+$danger-color: #e02416fd;
+
+@mixin flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin flex-wrap($x) {
+    -ms-flex-wrap: $x;
+    flex-wrap: $x;
+}   
+
+@mixin flex-justify($x) {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: $x;
+}
+
+@mixin flex-align($x) {
+    -webkit-box-align: $x;
+    -ms-flex-align: $x;
+    align-items: $x;
+}
+
+.err-container {
+    width: 100%;
+    margin-bottom: 2rem;
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+    .err-grid {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 1rem;
+        align-items: center;
+        background-color: $secondary-color;
+        color: $primary-color;
+        padding: 1rem;
+        border-radius: 0.5rem;
+
+        &.warning {
+            background-color: #FFCC00;
+        }
+
+        &.danger {
+            background-color: #e02416fd;
+        }
+
+        .err-msg {
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .err-close {
+            cursor: pointer;
+        }
+    };
+}
+
+.error_padding {
+    margin: 2rem 20rem 2rem 20rem;
+    background-color: $primary-color;
+    box-shadow: 0px 3px 6px rgb(0, 0, 0, 0.16);
+    padding: 2rem;
+    .glitch {
+        @include flex;
+        @include flex-justify(center);
+        @include flex-align(center);
+        @include flex-wrap(nowrap);
+        position: relative;
+        z-index: 10;
+    
+        h1.content {
+            position: relative;
+            z-index: 9999;
+            color: $secondary-color;
+            font-size: 18rem;
+            width: fit-content;
+            letter-spacing: 1rem;
+            margin-right: -1rem;
+    
+            &::before, &::after {
+                @include flex();
+                @include flex-align(center);
+                @include flex-justify(center);
+                content: attr(data-text);
+                position: absolute;
+                z-index: -1;
+                top: 0;
+            }
+    
+            &::before {
+                left: -0.3rem;
+                color: red;
+            }
+
+            &::after {
+                left: 0.3rem;
+                color: blue;
+            }
+        }
+    }
+
+    .description {
+        @include flex;
+        @include flex-justify(center);
+        @include flex-align(center);
+        @include flex-wrap(nowrap);
+        flex-direction: column;
+
+        p {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .description-enlarge {
+            font-size: 2em;
+            font-weight: bold;
+        }
+    }
+}

@@ -1,40 +1,59 @@
-<form action="/auth/signup" method="post" autocomplete="off" enctype="multipart/form-data">
-    <div class="sign-form">
+<div class="sign-form">
+    <form action="/auth/signup" method="post" autocomplete="off" enctype="multipart/form-data">
+        {{>_formerrmsg}}
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" class="form-input" name="email" id="email" placeholder="Email" required >
+            <input type="email" class="form-input" name="email" id="email" placeholder="example@gmail.com" required >
+            <p id="email_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-input" name="password" id="password" placeholder="Password" >
+            <input type="password" class="form-input" name="password" id="password" placeholder="Password" required>
+            <p id="password_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="cfmpassword">Confirm Password:</label>
-            <input type="password" class="form-input" name="cfmpassword" id="cfmpassword" placeholder="Confirm Password" >
+            <input type="password" class="form-input" name="cfmpassword" id="cfmpassword" placeholder="Confirm Password" required>
+            <p id="cfmpassword_err" class="form-err"></p>
+        </div>
+        <div class="form-avatar">
+            <div class="form-group">
+                <label for="avatar">Avatar:</label>
+                <input type="file" class="form-input" name="avatar" id="avatar" />
+                <p id="avatar_err" class="form-err"></p>
+            </div>
+            <div class="form-avatar-preview">
+                <img src="/images/Icon.png" id="avatar_preview" />
+            </div>
         </div>
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" class="form-input" name="username" id="username" placeholder="Username" required >
+            <p id="username_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="instagram">Instagram Account:</label>
-            <input type="text" class="form-input" name="instagram" id="instagram" placeholder="Instagram Account" >
+            <input type="text" class="form-input" name="instagram" id="instagram" placeholder="@useraccount" >
+            <p id="instagram_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="twitter">Twitter Account:</label>
-            <input type="text" class="form-input" name="twitter" id="twitter" placeholder="Twitter Account" >
+            <input type="text" class="form-input" name="twitter" id="twitter" placeholder="@useraccount" >
+            <p id="twitter_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="other_proof">Other Proof:</label>
             <input type="file" class="form-input" name="other_proof" id="other_proof" />
+            <p id="other_proof_err" class="form-err"></p>
         </div>
-        <div class="form-group">
-            <label for="avatar">Avatar:</label>
-            <input type="file" class="form-input" name="avatar" id="avatar" />
+        <div class="form-button">
+            <small class="notice">By clicking on the Submit button, I agree that I have read and accepted the <a href="">Terms &amp; Conditions</a> and the <a href="">Privacy Policy</a></small>
         </div>
         <div class="form-button">
             <button class="btn btn-secondary" type="reset">Reset</button>
             <button class="btn btn-primary" type="submit">Sign Up</button>
         </div>
-    </div>
-</form>
+    </form>
+    <div class="divider"></div>
+    <p class="registration">Already have an account? <a href="/auth/signin" class="registration-link">Sign in</a></p>
+</div>

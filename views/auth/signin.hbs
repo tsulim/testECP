@@ -1,16 +1,26 @@
-<form action="/auth/signin" method="post" autocomplete="off">
-    <div class="sign-form">
+<div class="sign-form">
+    <form action="/auth/signin" method="post" autocomplete="off">
+        {{>_formerrmsg}}
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-input" name="username" id="username" placeholder="Username" required >
+            <label for="email">Email:</label>
+            <input type="email" class="form-input" name="email" id="email" placeholder="example@gmail.com" data-ignore="true" required >
+            <p id="email_err" class="form-err"></p>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-input" name="password" id="password" placeholder="Password" >
+            <input type="password" class="form-input" name="password" id="password" placeholder="Password" required >
+            <p id="email_err" class="form-err"></p>
         </div>
         <div class="form-button">
-            <button class="btn btn-secondary" type="reset">Reset</button>
+            <a href="/auth/forgotpassword">Forgot Password?</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <input type="checkbox" class="form-input" name="remember_me" id="remember_me">
+            <label for="remember_me">Remember Me</label>
+        </div>
+        <div class="form-button">
             <button class="btn btn-primary" type="submit">Sign In</button>
         </div>
-    </div>
-</form>
+    </form>
+    <div class="divider"></div>
+    <p class="registration">Don't have an account? <a href="/auth/signup" class="registration-link">Sign up</a></p>
+</div>

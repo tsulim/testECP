@@ -1,11 +1,6 @@
 const {
     CognitoIdentityProvider,
-    RecoveryOptionNameType,
-    AliasAttributeType,
-    UserPoolMfaType,
-    AttributeDataType,
 } = require('@aws-sdk/client-cognito-identity-provider');
-const crypto = require('crypto');
 
 class InitCognito {
     #_cognito
@@ -16,7 +11,7 @@ class InitCognito {
             };
             this.#_cognito.listUserPools(params).then((list_res) => {
                 if (list_res.UserPools.length > 0) {
-                    const pool_exists = list_res.UserPools.filter(x => x.Name === process.env.DevResourceName);
+                    const pool_exists = process.env.NODE_ENV === "dev"?list_res.UserPools.filter(x => x.Name === process.env.DevResourceName):list_res.UserPools.filter(x => x.Name === "ArTion-UserPool");
                     if (pool_exists.length < 1) {
                         rs({
                             "Exists": false,
@@ -59,7 +54,7 @@ class InitCognito {
                         "UserPoolId": res.UserPoolId
                     };
                     this.#_cognito.listUserPoolClients(params).then(list_res => {
-                        const client_exists = list_res.UserPoolClients.filter(x => x.ClientName === process.env.DevResourceName);
+                        const client_exists = process.env.NODE_ENV === "dev"?list_res.UserPoolClients.filter(x => x.ClientName === process.env.DevResourceName):list_res.UserPoolClients.filter(x => x.ClientName === "ArTion-UserPoolClient");
                         if (client_exists.length < 1) {
                             rs({
                                 "Exists": false,
@@ -108,7 +103,7 @@ class InitCognito {
                 accessKeyId: process.env.AWS_ACCESS_KEY,
                 secretAccessKey: process.env.AWS_SECRET_KEY
             },
-            region: "ap-southeast-1",
+            region: process.env.Region,
         });
     };
 
@@ -144,6 +139,28 @@ class InitCognito {
                         ]
                     };
                     this.#_cognito.signUp(params).then((res) => {
+                        rs(res);
+                    }).catch((err) => {
+                        rj(err);
+                    });
+                } else {
+                    rj({"$metadata": {"status": 402}});
+                };
+            }).catch(err => {
+                rj(err);
+            });
+        });
+    };
+
+    GetUser = async (body) => {
+        return await new Promise((rs,rj) => {
+            this.#GetUserPoolInformation().then(res => {
+                if (res.Exists) {
+                    const params = {
+                        "UserPoolId": res.UserPoolId,
+                        "Username": body.username,
+                    };
+                    this.#_cognito.adminGetUser(params).then((res) => {
                         rs(res);
                     }).catch((err) => {
                         rj(err);
