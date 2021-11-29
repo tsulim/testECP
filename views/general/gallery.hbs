@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>bruh</h1>
+    <div class="container-fluid gallery-container">
+        <div class="row" style="margin-bottom: 1rem;">
+            {{#if images}}
+            {{#each images}}
+            <div class="col-lg-3 col-sm-6 col-6 p-2">
+                <div class="card">
+                    <img src="https://dpokn13v30ter.cloudfront.net/{{this.filename}}" class="card-img-top">
+                    <div class="user-container">
+                        <img class="user-img-thumbnail col-2" src="/images/profile_img_placeholder.png">
+                        <h6 class="card-title">Username</h6>
+                    </div>
+                    <h3 class="card-title">{{this.title}}</h3>
+                </div>
+            </div>
+            {{/each}}
+            {{else}}
+            <div class="col-lg-3 col-sm-6 col-6 p-2">
+                <div class="card">
+                    <img src="/images/img_placeholder.png" class="card-img-top">
+                    <div class="user-container">
+                        <img class="user-img-thumbnail col-2" src="/images/profile_img_placeholder.png">
+                        <h6 class="card-title">Username</h6>
+                    </div>
+                    <h3 class="card-title">Artwork title</h3>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
