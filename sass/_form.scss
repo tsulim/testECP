@@ -158,19 +158,19 @@ input[type=email]:focus-visible {
         @include flex-align(center);
         @include flex-justify(flex-start);
         margin-top: 0.5rem;
-        color: $alternate-color;
+        color: $secondary-color;
 
         .material-icons {
             font-size: 18px;
             transition: color 0.3s ease-in;
-            color: $alternate-color;
+            color: $secondary-color;
         }
 
         &:hover {
-            color: $secondary-color;
+            color: $alternate-color;
 
             .material-icons {
-                color: $secondary-color;
+                color: $alternate-color;
             }
         }
     }

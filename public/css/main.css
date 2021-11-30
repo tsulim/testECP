@@ -697,18 +697,18 @@ input[type=email]:focus-visible {
   -ms-flex-pack: justify;
   justify-content: flex-start;
   margin-top: 0.5rem;
-  color: #70798C;
+  color: #252323;
 }
 .form-group .form-info .material-icons {
   font-size: 18px;
   transition: color 0.3s ease-in;
-  color: #70798C;
+  color: #252323;
 }
 .form-group .form-info:hover {
-  color: #252323;
+  color: #70798C;
 }
 .form-group .form-info:hover .material-icons {
-  color: #252323;
+  color: #70798C;
 }
 .form-group input.form-input {
   padding: 0.5rem 2rem 0.5rem 2rem;

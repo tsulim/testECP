@@ -20,8 +20,6 @@
   },
   "homepage": "https://github.com/sohweirong/ECP#readme",
   "dependencies": {
-    "@affinidi/wallet-browser-sdk": "^6.0.1",
-    "@affinidi/wallet-core-sdk": "^6.0.2",
     "@aws-sdk/client-cognito-identity-provider": "^3.42.0",
     "@aws-sdk/client-s3": "^3.42.0",
     "@aws-sdk/client-ssm": "^3.42.0",
