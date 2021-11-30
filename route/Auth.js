@@ -229,10 +229,10 @@ router.post("/signup", upload, (req,res) => {
     // Then followed by user proof
     if (req.files.proof) {
         const {filename:opfilename,originalname:oporiginalname,mimetype:opmimetype,destination:opdestination} = req.files.other_proof[0];
-        if (!(/.txt|.pdf/.test(path.extname(oporiginalname).toLowerCase()))) {
+        if (!(/.pdf/.test(path.extname(oporiginalname).toLowerCase()))) {
             return res.render('auth/signup', {
                 title: "ArTion - Sign Up",
-                form_err_msg: "Avatar file format is not accepted. Only accepts txt and pdf"
+                form_err_msg: "Avatar file format is not accepted. Only accepts pdf"
             });
         };
         // Reading the other proof binary
