@@ -98,14 +98,81 @@ input[type=email]:focus-visible {
     margin-bottom: 2rem;
 
     label {
+        @include flex;
+        @include flex-wrap(nowrap);
+        @include flex-align(center);
+        @include flex-justify(flex-start);
         font-size: 1em;
         margin-bottom: 0.5rem;
+        
+
+        .info {
+            font-size: 18px;
+            position: relative;
+            transition: color 0.3s ease-in-out;
+
+            &::before {
+                font-family: jubilat, Helvetica Neue, sans-serif;
+                content: attr(data-text);
+                color: $primary-color;
+                background-color: $alternate-color;
+                z-index: -1;
+                position: absolute;
+                top: -2.5rem;
+                left: 0rem;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0.3s ease-in, opacity 0.3s ease-in;
+                max-width: 16rem;
+            }
+
+            &:hover {
+                color: $alternate-color;
+            }
+
+            &:hover::before {
+                visibility: visible;
+                opacity: 1;
+                z-index: 99999;
+            }
+        }
+
+        
     }
 
     .form-err {
         margin-top: 0.5rem;
         display: none;
         color: $danger-color;
+    }
+
+    a.form-info {
+        text-decoration: none;
+    }
+
+    .form-info {
+        @include flex;
+        @include flex-wrap(nowrap);
+        @include flex-align(center);
+        @include flex-justify(flex-start);
+        margin-top: 0.5rem;
+        color: $alternate-color;
+
+        .material-icons {
+            font-size: 18px;
+            transition: color 0.3s ease-in;
+            color: $alternate-color;
+        }
+
+        &:hover {
+            color: $secondary-color;
+
+            .material-icons {
+                color: $secondary-color;
+            }
+        }
     }
 
     input.form-input {

@@ -2,12 +2,11 @@ const router = require('express').Router();
 const multer = require('multer');
 const path = require("path");
 const fs = require("fs");
-const S3_Client = require("../api/S3");
-const Cognito_Client = require("../api/Cognito");
-const {LoginAPI, RegisterAPI, RegisterConfirmAPI, LogoutAPI} = require("../api/Affinidi");
+const S3API = require("../api/S3");
+const AffinidiAPI = require("../api/Affinidi");
 
-const InitS3 = new S3_Client();
-const InitCognito = new Cognito_Client();
+const S3 = new S3API();
+const Affinidi = new AffinidiAPI();
 
 const filefilter = (req, file, cb) => {
     const mimetype = file.mimetype;
@@ -23,10 +22,10 @@ const filefilter = (req, file, cb) => {
                 cb(null, false);
             };
             break;
-        case "other_proof":
-            amt = ['text/plain','application/pdf'];
-            amt_regex = /.txt|.pdf/;
-            if (amt.indexOf(mimetype) > -1 && amt_regex.test(ext)) {
+        case "proof":
+            amt = ['application/pdf'];
+            amt_regex = /.pdf/;
+            if (mimetype === 'application/pdf' && amt_regex.test(ext)) {
                 cb(null, true);
             } else {
                 cb(null, false);
@@ -55,7 +54,7 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({storage: storage, fileFilter: filefilter}).fields([{ name: 'avatar', maxCount: 1 }, { name: 'other_proof', maxCount: 1 }]);
+const upload = multer({storage: storage, fileFilter: filefilter}).fields([{ name: 'avatar', maxCount: 1 }, { name: 'proof', maxCount: 1 }]);
 
 router.get("/signin",(req,res) => {
     return res.render('auth/signin', {
@@ -69,23 +68,21 @@ router.get("/signup",(req,res) => {
     });
 });
 
-router.get("/confirmation/:type", (req,res) => {
-    const {type} = req.params;
-    const {username, k} = req.query;
+router.get("/downloadform", (req,res) => {
+    res.download('./public/images/template.docx');
+});
 
-    var form_err_msg = "";
-    if (type === "auth") {
-        form_err_msg = "An OTP has been sent to "+username+". This OTP is to verify your email.";
-    } else {
-        form_err_msg = "An OTP has been sent to "+username+". This OTP is so as to issue you're user ID.";
-    }
+router.get("/confirmation", (req,res) => {
+    const {k} = req.query;
+    if (!k){
+        return res.status(400).redirect("signin");
+    };
 
     return res.render('auth/verifyemail',{
         title: "ArTion - Confirmation",
         username,
         token: k,
-        type,
-        form_err_msg,
+        form_err_msg: "An OTP has been sent to "+username,
     });
 });
 
@@ -100,13 +97,13 @@ router.get("/logout", (req,res) => {
 
 // Post methods
 router.post("/signin",(req,res) => {
-    const {email, password} = req.body;
+    const {username, password} = req.body;
     const params = {
-        username: email,
+        username: username,
         password: password
     };
 
-    if (!(/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i.test(email))) {
+    if (!(/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i.test(username))) {
         return res.render('auth/signin', {
             title: "ArTion - Sign In",
             form_err_msg: "Email format is invalid",
@@ -117,7 +114,20 @@ router.post("/signin",(req,res) => {
             form_err_msg: "Password format is invalid",
         });
     };
-
+    
+    Affinidi.StartAuth(params).then(resp => {
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+        return res.redirect('/');
+    }).catch(err => {
+        console.log(err);
+        return res.render('auth/signin', {
+            title: "ArTion - Sign In",
+            form_err_msg: "Incorrect username or password",
+        });
+    });
+    /*
     InitCognito.GetUser(params).then(resp =>{
         if (resp.UserStatus === "CONFIRMED") {
             InitCognito.LoginUser(params).then(_ => {
@@ -167,12 +177,18 @@ router.post("/signin",(req,res) => {
             form_err_msg: "Incorrect username or password" 
         });
     });
+    */
 });
 
 // Creating cpUpload to allow upload of two files, avatar and other proof
 router.post("/signup", upload, (req,res) => {
     // Extracting form data
-    const {email, username, password, cfmpassword, instagram, twitter} = req.body;
+    const {email, username, password, cfmpassword} = req.body;
+
+    const params = {
+        username: email,
+        password: password,
+    };
     
     if (!(/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i.test(email))) {
         return res.render('auth/signup', {
@@ -189,16 +205,6 @@ router.post("/signup", upload, (req,res) => {
             title: "ArTion - Sign Up",
             form_err_msg: "Password do not match"
         });
-    } else if (!(/^\@{1}([a-zA-Z0-9]+[^a-zA-Z0-9\s]*)$/.test(twitter))) {
-        return res.render('auth/signup', {
-            title: "ArTion - Sign Up",
-            form_err_msg: "Twitter format is invalid"
-        });
-    } else if (!(/^\@{1}([a-zA-Z0-9]+[^a-zA-Z0-9\s]*)$/.test(instagram))) {
-        return res.render('auth/signup', {
-            title: "ArTion - Sign Up",
-            form_err_msg: "Instagram format is invalid"
-        });
     };
     
     // Extracting information required to push to bucket
@@ -212,17 +218,16 @@ router.post("/signup", upload, (req,res) => {
             });
         };
         // Reading the avatar binary
-        const avbinary = fs.readFileSync(`${avdestination}/${avfilename}`);
         // Being insert operation for avatar
-        InitS3.InsertFile(`${email}/${avfilename}`,avmimetype,avbinary).then((_) => {
+        S3.InsertFile(`${email}/${avfilename}`,avmimetype,fs.readFileSync(`${avdestination}/${avfilename}`)).then((_) => {
             fs.unlinkSync(`${avdestination}/${avfilename}`);
         }).catch((err) => {
             console.log(err);
         });
     };
     
-    // Then followed by user other proof
-    if (req.files.other_proof) {
+    // Then followed by user proof
+    if (req.files.proof) {
         const {filename:opfilename,originalname:oporiginalname,mimetype:opmimetype,destination:opdestination} = req.files.other_proof[0];
         if (!(/.txt|.pdf/.test(path.extname(oporiginalname).toLowerCase()))) {
             return res.render('auth/signup', {
@@ -231,26 +236,28 @@ router.post("/signup", upload, (req,res) => {
             });
         };
         // Reading the other proof binary
-        const opbinary = fs.readFileSync(`${opdestination}/${opfilename}`);
         // Being insert operation for other proof
-        InitS3.InsertFile(`${email}/${opfilename}`,opmimetype,opbinary).then((_) => {
+        S3.InsertFile(`${email}/${opfilename}`,opmimetype,fs.readFileSync(`${opdestination}/${opfilename}`)).then((_) => {
             fs.unlinkSync(`${opdestination}/${opfilename}`);
         }).catch((err) => {
             console.log(err);
         });
     };
 
-    // Setting up form body for cognito to render
-    const params = {
-        username: email,
-        nickname: username,
-        password: password,
-        picture: req.files.avatar?`${email}/${req.files.avatar[0].filename}`:"",
-        twitter: twitter,
-        instagram: instagram, 
-        other_proof: req.files.other_proof?`${email}/${req.files.other_proof[0].filename}`:"",
-    };
+    Affinidi.SignUp(params).then(resp => {
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+        return res.redirect("confirmation?k="+resp.token);
+    }).catch(err => {
+        console.log(err);
+        return res.render('auth/signup', {
+            title: "ArTion - Sign Up",
+            form_err_msg: "Please try again"
+        });
+    });
 
+    /*
     InitCognito.CreateUser(params).then(resp => {
         if (process.env.NODE_ENV === "dev") {
             console.log(resp);
@@ -264,13 +271,44 @@ router.post("/signup", upload, (req,res) => {
         console.log(err);
         return res.redirect('signup');
     });
+    */
 
 });
 
-router.post("/confirmation/:type", (req,res) => {
-    const {type} = req.params;
-    const {username, otp, token} = req.body;
+router.post("/confirmation", (req,res) => {
+    const {otp, token} = req.body;
     
+    const params = {
+        token: token,
+        confirmationCode: otp
+    };
+
+    if (!(/[a-zA-Z0-9]{6}/.test(otp))) {
+        return res.render('auth/verifyemail', {
+            title: "ArTion - Confirmation",
+            form_err_msg: "OTP format is invalid"
+        });
+    } else if (token.length < 1) {
+        return res.render('auth/verifyemail', {
+            title: "ArTion - Confirmation",
+            form_err_msg: "Please try again"
+        });
+    };
+
+    Affinidi.ConfirmSignUp(params).then(resp => {
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+        res.redirect("signin");
+    }).catch(err => {
+        console.log(err);
+        return res.render('auth/verifyemail', {
+            title: "ArTion - Confirmation",
+            form_err_msg: "Please try again"
+        });
+    });
+
+    /*
     if (type === "did") {
         const params = {
             token: token,
@@ -306,19 +344,34 @@ router.post("/confirmation/:type", (req,res) => {
     } else {
         return res.redirect("signin");
     };
+    */
 });
 
 router.post("/getemail", (req,res) => {
-    if (req.get("referer") === "http://localhost:3000/auth/signup" || req.get("referer") === "https://localhost:3000/auth/signup") {
-        const {username} = req.body;
-        InitCognito.GetUser({username}).then(resp => {
-            return res.json({exists: true});
-        }).catch(err => {
-            return res.json({exists: false});
-        });
-    } else {
-        return res.redirect(req.get("referer"));
+    const {username} = req.body;
+    
+    const params = {
+        username: username,
+        password: "P@55w0rd"
     };
+
+    Affinidi.SignUp(params).then(resp => {
+        if (process.env.NODE_ENV === "dev") {
+            console.log(resp);
+        };
+        return res.json({exists:false});
+    }).catch(err => {
+        console.log(err);
+        return res.json({exists:true});
+    });
+
+    /*
+    InitCognito.GetUser({username}).then(resp => {
+        return res.json({exists: true});
+    }).catch(err => {
+        return res.json({exists: false});
+    });
+    */
 });
 
 module.exports = router;

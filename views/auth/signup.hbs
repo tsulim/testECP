@@ -32,19 +32,15 @@
             <p id="username_err" class="form-err"></p>
         </div>
         <div class="form-group">
-            <label for="instagram">Instagram Account:</label>
-            <input type="text" class="form-input" name="instagram" id="instagram" placeholder="@useraccount" >
-            <p id="instagram_err" class="form-err"></p>
-        </div>
-        <div class="form-group">
-            <label for="twitter">Twitter Account:</label>
-            <input type="text" class="form-input" name="twitter" id="twitter" placeholder="@useraccount" >
-            <p id="twitter_err" class="form-err"></p>
-        </div>
-        <div class="form-group">
-            <label for="other_proof">Other Proof:</label>
-            <input type="file" class="form-input" name="other_proof" id="other_proof" />
-            <p id="other_proof_err" class="form-err"></p>
+            <label for="proof">Proof&nbsp;
+                <small class="material-icons info" data-text="Please submit in pdf format">
+                    info
+                </small>
+                :
+            </label>
+            <input type="file" class="form-input" name="proof" id="proof" />
+            <p id="proof_err" class="form-err"></p>
+            <a class="form-info" href="/auth/downloadform"><span class="material-icons">download</span>&nbsp;Download the form</a>
         </div>
         <div class="form-button">
             <small class="notice">By clicking on the Submit button, I agree that I have read and accepted the <a href="">Terms &amp; Conditions</a> and the <a href="">Privacy Policy</a></small>

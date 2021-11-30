@@ -633,13 +633,82 @@ input[type=email]:focus-visible {
   margin-bottom: 2rem;
 }
 .form-group label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
   font-size: 1em;
   margin-bottom: 0.5rem;
+}
+.form-group label .info {
+  font-size: 18px;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+.form-group label .info::before {
+  font-family: jubilat, Helvetica Neue, sans-serif;
+  content: attr(data-text);
+  color: #ffffff;
+  background-color: #70798C;
+  z-index: -1;
+  position: absolute;
+  top: -2.5rem;
+  left: 0rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s ease-in, opacity 0.3s ease-in;
+  max-width: 16rem;
+}
+.form-group label .info:hover {
+  color: #70798C;
+}
+.form-group label .info:hover::before {
+  visibility: visible;
+  opacity: 1;
+  z-index: 99999;
 }
 .form-group .form-err {
   margin-top: 0.5rem;
   display: none;
   color: #e02416fd;
+}
+.form-group a.form-info {
+  text-decoration: none;
+}
+.form-group .form-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+  color: #70798C;
+}
+.form-group .form-info .material-icons {
+  font-size: 18px;
+  transition: color 0.3s ease-in;
+  color: #70798C;
+}
+.form-group .form-info:hover {
+  color: #252323;
+}
+.form-group .form-info:hover .material-icons {
+  color: #252323;
 }
 .form-group input.form-input {
   padding: 0.5rem 2rem 0.5rem 2rem;

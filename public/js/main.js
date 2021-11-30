@@ -120,26 +120,6 @@ const query_forms = () => {
 
     $('#otp').mask("AAAAAA", {placeholder: "XXXXXX",selectOnFocus: true});
 
-    $("#twitter").on("keyup", function(){
-        const val = $(this).val();
-        if (!(/^\@{1}([a-zA-Z0-9]+[^a-zA-Z0-9\s]*)$/.test(val))) {
-            $("#twitter_err").show();
-            $("#twitter_err").text("Twitter format is invalid");
-        } else {
-            $("#twitter_err").hide();
-        };
-    });
-
-    $("#instagram").on("keyup", function(){
-        const val = $(this).val();
-        if (!(/^\@{1}([a-zA-Z0-9]+[^a-zA-Z0-9\s]*)$/.test(val))) {
-            $("#instagram_err").show();
-            $("#instagram_err").text("Instagram format is invalid");
-        } else {
-            $("#instagram_err").hide();
-        };
-    });
-
     $("#avatar").on("change", function() {
         const myFile = $(this).prop('files')[0];
         const extension = myFile.name.split(".");
@@ -152,14 +132,14 @@ const query_forms = () => {
         };
     });
 
-    $("#other_proof").on("change", function() {
+    $("#proof").on("change", function() {
         const myFile = $(this).prop('files')[0];
         const extension = myFile.name.split(".");
-        if (!(/pdf|txt/.test(extension[extension.length - 1]))) {
-            $("#other_proof_err").show();
-            $("#other_proof_err").text("Only accepts txt and pdf");
+        if (!(/pdf/.test(extension[extension.length - 1]))) {
+            $("#proof_err").show();
+            $("#proof_err").text("Only accepts txt and pdf");
         } else {
-            $("#other_proof_err").hide();
+            $("#proof_err").hide();
         };
     });
 };

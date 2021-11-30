@@ -1,9 +1,6 @@
 <div class="sign-form">
-    <form action="/auth/confirmation/{{type}}" method="post" autocomplete="off">
+    <form action="/auth/confirmation" method="post" autocomplete="off">
         {{>_formerrmsg}}
-        {{#if username}}
-        <input type="text" class="form-input" name="username" id="username" value="{{username}}" hidden required />
-        {{/if}}
         {{#if token}}
         <input type="text" class="form-input" name="token" id="token" value="{{token}}" hidden required />
         {{/if}}

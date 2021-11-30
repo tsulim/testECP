@@ -222,6 +222,27 @@ class InitCognito {
             });
         });
     };
+
+    LogoutUser = async (accesstoken) => {
+        return await new Promise((rs,rj) => {
+            this.#GetUserPoolClientInformation().then(res => {
+                if (res.Exists) {
+                    const params = {
+                        "AccessToken": accesstoken
+                    };
+                    this.#_cognito.globalSignOut(params).then((res) => {
+                        rs(res);
+                    }).catch((err) => {
+                        rj(err);
+                    });
+                } else {
+                    rj({"$metadata": {"status": 402}});
+                };
+            }).catch(err => {
+                rj(err);
+            });
+        });
+    };
 };
 
 module.exports = InitCognito;
