@@ -21,6 +21,7 @@
   "homepage": "https://github.com/sohweirong/ECP#readme",
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.42.0",
+    "@aws-sdk/client-dynamodb": "^3.43.0",
     "@aws-sdk/client-s3": "^3.42.0",
     "@aws-sdk/client-ssm": "^3.42.0",
     "axios": "^0.24.0",

@@ -220,7 +220,7 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          - Action
+          - Action:
               - 's3:GetObject'
             Effect: Allow
             Resource: !GetAtt BucketUsers.Arn
