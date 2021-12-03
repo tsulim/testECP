@@ -1,31 +1,20 @@
 const { S3 } = require('@aws-sdk/client-s3');
+const crediential = require('../config/Crediential');
 
 // Creating class so can set as initialize global var in each route;
 class InitS3 {
     #_s3;
     constructor() {
         // Won't repeat initialization of S3;
-        this.#_s3 = new S3({
-            credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY,
-                secretAccessKey: process.env.AWS_SECRET_KEY
-            },
-            region: process.env.Region,
-        });
+        this.#_s3 = new S3(crediential);
     };
 
-    InsertFile = async (key_name_str, content_type_str, binary) => {
+    putItem = async (bucketName, data) => {
         return await new Promise((rs,rj) => {
             var params = {
-                Key: key_name_str,
-                Body: binary,
-                ContentType: content_type_str,
-                CacheControl: "max-age=30"
-            };
-            if (process.env.NODE_ENV === "dev") {
-                params["Bucket"] = process.env.DevResourceName;
-            } else {
-                params["Bucket"] = "ArTion-Bucket";
+                CacheControl: "max-age=30",
+                Bucket: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-bucket-${bucketName}` : `${process.env.ProdRN}-bucket-${bucketName}`,
+                ...data,
             };
             this.#_s3.putObject(params).then((res) => {
                 rs(res);
@@ -35,15 +24,11 @@ class InitS3 {
         });
     };
 
-    DeleteFile = async () => {
+    deleteItem = async (bucketName, data) => {
         return await new Promise((rs,rj) => {
             var params = {
-                Key: key_name_str,
-            };
-            if (process.env.NODE_ENV === "dev") {
-                params["Bucket"] = process.env.DevResourceName;
-            } else {
-                params["Bucket"] = "ArTion-Bucket";
+                Bucket: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-bucket-${bucketName}` : `${process.env.ProdRN}-bucket-${bucketName}`,
+                ...data,
             };
             this.#_s3.deleteObject(params).then((res) => {
                 rs(res);

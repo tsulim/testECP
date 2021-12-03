@@ -1,5 +1,17 @@
 const axios = require('axios').default;
 
+const restrictedAccess = (req, res, next) => {
+    if (req.session.user) {
+        next()
+    } else {
+        res.status(401).render("error/errorPage", {
+            status: 401,
+            subject: "Unauthorized Access",
+            message: "Suspicious activity detected"
+        });
+    };
+};
+
 class InitAffinidi {
     #_secretAxios;
     constructor() {
@@ -9,10 +21,6 @@ class InitAffinidi {
                 "Api-Key": process.env.API_KEY_HASH,
             }
         });
-    };
-
-    CheckSession = async (body) => {
-
     };
     
     StartAuth = async (data) => {
@@ -69,7 +77,7 @@ class InitAffinidi {
         return await new Promise((rs,rj) => {
             this.#_secretAxios.post("/users/logout", {}, {
                 headers: {
-                    "Authorization": body.accesstoken
+                    "Authorization": body.accessToken
                 },
             }).then((res) => {
                 rs(res.data);
@@ -80,4 +88,7 @@ class InitAffinidi {
     };
 };
 
-module.exports = InitAffinidi;
+module.exports = {
+    AffinidiAPI: InitAffinidi,
+    restrictedAccess: restrictedAccess
+};

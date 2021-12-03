@@ -13,7 +13,7 @@ class InitDynamoDB {
     putItem = async (tableName, data) => {
         return await new Promise((rs,rj) => {
             const params = {
-                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-${tableName}` : `${process.env.ProdRN}-${tableName}`,
+                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-dynamodb-${tableName}` : `${process.env.ProdRN}-dynamodb-${tableName}`,
                 ...data,
             };
             this.#_dynamoDb.putItem(params).then((res) => {
@@ -27,7 +27,7 @@ class InitDynamoDB {
     updateItem = async (tableName, data) => {
         return await new Promise((rs,rj) => {
             const params = {
-                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-${tableName}` : `${process.env.ProdRN}-${tableName}`,
+                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-dynamodb-${tableName}` : `${process.env.ProdRN}-dynamodb-${tableName}`,
                 ...data,
             };
             this.#_dynamoDb.updateItem(params).then((res) => {
@@ -41,7 +41,7 @@ class InitDynamoDB {
     deleteItem = async (tableName, data) => {
         return await new Promise((rs,rj) => {
             const params = {
-                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-${tableName}` : `${process.env.ProdRN}-${tableName}`,
+                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-dynamodb-${tableName}` : `${process.env.ProdRN}-dynamodb-${tableName}`,
                 ...data,
             };
             this.#_dynamoDb.deleteItem(params).then((res) => {
@@ -55,7 +55,7 @@ class InitDynamoDB {
     getItem = async (tableName, data) => {
         return await new Promise((rs,rj) => {
             const params = {
-                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-${tableName}` : `${process.env.ProdRN}-${tableName}`,
+                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-dynamodb-${tableName}` : `${process.env.ProdRN}-dynamodb-${tableName}`,
                 ...data,
             };
             this.#_dynamoDb.getItem(params).then((res) => {
@@ -69,7 +69,7 @@ class InitDynamoDB {
     getAllItem = async (tableName, data) => {
         return await new Promise((rs,rj) => {
             const params = {
-                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-${tableName}` : `${process.env.ProdRN}-${tableName}`,
+                TableName: process.env.NODE_ENV === "dev" ? `${process.env.DevRN}-dynamodb-${tableName}` : `${process.env.ProdRN}-dynamodb-${tableName}`,
                 ...data,
             };
             this.#_dynamoDb.putItem(params).then((res) => {
