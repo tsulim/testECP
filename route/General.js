@@ -16,12 +16,18 @@ router.get(['/','/item'],(req,res) => {
         Key: 'kigNFT.png'
     }
 
-    var getParams = {Bucket: 'artionstoragebucket', Key: 'kigNFT.png'};
-    var picURL = s3.getObject();
-    console.log(picURL);
-    // ('getObject', getParams);
+    // var getParams = {
+    //     Bucket: 'artiontestbucket',
+    //     Key: 'kigNFT2.png'
+    // }
 
-    res.render('general/item', picURL);
+    // var picURL = "https://" + getParams.Bucket + ".s3.amazonaws.com/" + getParams.Key;
+
+    var picURL = s3.getSignedUrl('getObject', getParams);
+    
+    console.log(picURL);
+
+    res.render('general/item', {picURL: picURL});
 });
 
 module.exports = router;
