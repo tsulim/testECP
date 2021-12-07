@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="topPart">
+        <div>
+            <a href="#back" class="backBtn">
+                Back
+            </a>
+        </div>
+        <div class="pageName">
+            Create an NFT
+        </div>
+    </div>
+    <div class="bottomPart">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <div class="uploadBtn">
+                        <span class="material-icons">upload</span>
+                        <label>Upload</label>
+                    </div>
+                </div>
+                <input type="file" id="mediaFile" />
+                <div class="form-group">
+                    <label for="nftTitle">Title</label>
+                    <input type="text" class="form-control" id="nftTitle" name="nftTitle" placeholder="Please input NFT Title" value=""/>
+                </div>
+                <div class="form-group">
+                    <label for="nftDescription">Description</label>
+                    <textarea rows="4" cols="50" type="text" class="form-control" id="nftDescription" name="nftDescription" placeholder="Please input NFT description here." value=""></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="createBtn" type="submit" formaction="/createNFT" formmethod="post">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

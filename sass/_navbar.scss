@@ -260,13 +260,37 @@ header.nav {
                 display: none
             }
         }
+        .createBtn {
+            font-size: $nav-fontsize;
+            font-family: 'jubilat';
+            background: $secondary-color;
+            border: 1px solid $secondary-color;
+            padding: 0.5rem 2rem 0.5rem 2rem;
+            border-radius: 999rem;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: $primary-color;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            &:hover {
+                color: $secondary-color;
+                position: relative;
+                border-radius: 999rem;
+                border: 1px solid $redundant-color;
+                padding: 0.5rem 2rem 0.5rem 2rem;
+                background-color: $primary-color;
+                box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+                display: flex;
+                align-items: center;
+            }
+        }
         .loginBtn {
             font-size: $nav-fontsize;
             font-family: 'jubilat';
             background: $secondary-color;
             border: 1px solid $secondary-color;
             margin-left: 3rem;
-            margin-right: 3rem;
             padding: 0.5rem 2rem 0.5rem 2rem;
             border-radius: 999rem;
             transition: all 0.3s ease-in-out;
@@ -303,6 +327,18 @@ header.nav {
             text-decoration: none;
             display: flex;
             align-items: center;
+            &:hover {
+                color: $secondary-color;
+                position: relative;
+                border-radius: 999rem;
+                border: 1px solid $redundant-color;
+                margin-left: 3rem;
+                padding: 0.5rem 2rem 0.5rem 2rem;
+                background-color: $primary-color;
+                box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }
@@ -363,10 +399,16 @@ header.nav {
 @media only screen and (max-width: 1360px) {
     .navMain {
         .loginContainer {
-            margin-left: 10%;
+            margin-left: 5%;
             #openSearchBtn {
                 #openSearch {
                     display: none;
+                }
+            }
+            .profileBtn {
+                margin-left: 1rem;
+                &:hover {
+                    margin-left: 1rem;
                 }
             }
         }   

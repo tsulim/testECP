@@ -288,13 +288,37 @@ header.nav .search-input:focus-visible {
 .navMain .loginContainer #openSearchBtn #openSearch {
   display: none;
 }
+.navMain .loginContainer .createBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .createBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
 .navMain .loginContainer .loginBtn {
   font-size: 1.3em;
   font-family: "jubilat";
   background: #252323;
   border: 1px solid #252323;
   margin-left: 3rem;
-  margin-right: 3rem;
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 999rem;
   transition: all 0.3s ease-in-out;
@@ -329,6 +353,18 @@ header.nav .search-input:focus-visible {
   cursor: pointer;
   color: #ffffff;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .profileBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
 }
@@ -400,10 +436,16 @@ header.nav .search-input:focus-visible {
 }
 @media only screen and (max-width: 1360px) {
   .navMain .loginContainer {
-    margin-left: 10%;
+    margin-left: 5%;
   }
   .navMain .loginContainer #openSearchBtn #openSearch {
     display: none;
+  }
+  .navMain .loginContainer .profileBtn {
+    margin-left: 1rem;
+  }
+  .navMain .loginContainer .profileBtn:hover {
+    margin-left: 1rem;
   }
   .navMain .searchBar {
     display: flex;
@@ -545,6 +587,134 @@ footer.footer nav.bottom-nav .bottom-nav-item.active {
 }
 footer.footer nav.bottom-nav .bottom-nav-item p {
   all: unset;
+}
+
+.container {
+  width: 100%;
+  padding: 1rem 3rem 3rem 3rem;
+}
+.container .topPart {
+  display: grid;
+}
+.container .topPart .backBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+.container .topPart .backBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.container .topPart .pageName {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+.container .bottomPart {
+  padding-top: 2rem;
+  padding-left: 15%;
+  padding-right: 15%;
+  margin-bottom: 5rem;
+}
+.container .bottomPart .container {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  padding: 3rem;
+  font-family: "jubilat";
+}
+.container .bottomPart .container :focus-visible {
+  outline: -webkit-focus-ring-color auto 1px !important;
+  outline-offset: 0px;
+}
+.container .bottomPart .container ::placeholder {
+  font-family: "jubilat";
+}
+.container .bottomPart .container .form-group {
+  text-align: center;
+  font-size: 1.5rem;
+  display: grid;
+  justify-items: center;
+  margin-top: 0.5rem;
+}
+.container .bottomPart .container .form-group input {
+  height: calc(1.5em + 0.75rem + 2px);
+  width: 70% !important;
+}
+.container .bottomPart .container .form-group .form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #EBEBEB;
+  background-clip: padding-box;
+  border: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.container .bottomPart .container .form-group .uploadBtn {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 2.5rem;
+}
+.container .bottomPart .container .form-group .uploadBtn .material-icons {
+  font-size: 3rem;
+}
+.container .bottomPart .container .form-group #mediaFile {
+  display: block;
+}
+.container .bottomPart .container .createBtn {
+  font-size: 1rem;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+.container .bottomPart .container .createBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 0.5rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
 }
 
 .toggle-search {
