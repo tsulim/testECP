@@ -138,5 +138,60 @@ $input-color: #EBEBEB;
                 }
             }
         }
+        .emptyContainer {
+            width: 100%;
+            border-radius: 1rem;
+            background-color: transparent;
+            box-shadow: none;
+            padding: 3rem;
+            font-family: 'jubilat';
+            font-size: $nav-fontsize;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            a {
+                text-decoration: none;
+                color: $secondary-color;
+                .noCollabBtn {
+                    width: 100%;
+                    border-radius: 1rem;
+                    background-color: $primary-color;
+                    box-shadow: 0px 10px 50px rgb(0 0 0 / 16%);
+                    padding: 3rem;
+                    font-family: 'jubilat';
+                    
+                    display: grid;
+                    justify-items: center;
+                    align-items: center;
+                    justify-content: center;
+                    align-content: center;
+                    text-align: center;
+                    .material-icons {
+                        font-size: 4rem;
+                    }
+                }
+                .collabBtn {
+                    width: 100%;
+                    border-radius: 1rem;
+                    background-color: $primary-color;
+                    box-shadow: 0px 10px 50px rgb(0 0 0 / 16%);
+                    padding: 3rem;
+                    font-family: 'jubilat';
+    
+                    display: grid;
+                    justify-items: center;
+                    align-items: center;
+                    justify-content: center;
+                    align-content: center;
+                    text-align: center;
+                    .material-icons {
+                        font-size: 4rem;
+                    }
+                }
+            }
+
+        }
     } 
 }
