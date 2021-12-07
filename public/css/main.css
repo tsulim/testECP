@@ -682,10 +682,27 @@ footer.footer nav.bottom-nav .bottom-nav-item p {
   align-items: center;
   justify-content: center;
   align-content: center;
-  padding: 2.5rem;
+  padding: 5rem;
+  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+.container .bottomPart .container .form-group .uploadBtn label {
+  cursor: pointer;
 }
 .container .bottomPart .container .form-group .uploadBtn .material-icons {
   font-size: 3rem;
+}
+.container .bottomPart .container .form-group .uploadBtn.dragging {
+  background-image: none !important;
+}
+.container .bottomPart .container .form-group .hasImage {
+  padding: 10rem !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center center;
 }
 .container .bottomPart .container .form-group #mediaFile {
   display: block;
@@ -715,6 +732,10 @@ footer.footer nav.bottom-nav .bottom-nav-item p {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: center;
+}
+.container .bottomPart .container #mediaFile {
+  position: absolute;
+  top: -1000px;
 }
 .container .bottomPart .emptyContainer {
   width: 100%;
@@ -749,6 +770,9 @@ footer.footer nav.bottom-nav .bottom-nav-item p {
 .container .bottomPart .emptyContainer a .noCollabBtn .material-icons {
   font-size: 4rem;
 }
+.container .bottomPart .emptyContainer a .noCollabBtn label {
+  cursor: pointer;
+}
 .container .bottomPart .emptyContainer a .collabBtn {
   width: 100%;
   border-radius: 1rem;
@@ -765,6 +789,9 @@ footer.footer nav.bottom-nav .bottom-nav-item p {
 }
 .container .bottomPart .emptyContainer a .collabBtn .material-icons {
   font-size: 4rem;
+}
+.container .bottomPart .emptyContainer a .collabBtn label {
+  cursor: pointer;
 }
 
 .toggle-search {

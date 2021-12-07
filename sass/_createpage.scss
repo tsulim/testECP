@@ -100,11 +100,30 @@ $input-color: #EBEBEB;
                     align-items: center;
                     justify-content: center;
                     align-content: center;
-                    padding: 2.5rem;
+                    padding: 5rem;
 
+                    background-size: cover;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+
+                    cursor: pointer;
+                    label {
+                        cursor: pointer;
+                    }
                     .material-icons {
                         font-size: 3rem;
                     }
+
+                    &.dragging {
+                        background-image: none!important;
+                    }
+                }
+                .hasImage {
+                    padding: 10rem !important;
+                    background-size: contain !important;
+                    background-repeat: no-repeat !important;
+                    background-position: center center;
                 }
                 #mediaFile {
                     display: block;
@@ -136,6 +155,10 @@ $input-color: #EBEBEB;
                     display: flex;
                     align-items: center;
                 }
+            }
+            #mediaFile {
+                position: absolute;
+                top: -1000px;
             }
         }
         .emptyContainer {
@@ -171,6 +194,9 @@ $input-color: #EBEBEB;
                     .material-icons {
                         font-size: 4rem;
                     }
+                    label {
+                        cursor: pointer;
+                    }
                 }
                 .collabBtn {
                     width: 100%;
@@ -188,6 +214,9 @@ $input-color: #EBEBEB;
                     text-align: center;
                     .material-icons {
                         font-size: 4rem;
+                    }
+                    label { 
+                        cursor: pointer;
                     }
                 }
             }
