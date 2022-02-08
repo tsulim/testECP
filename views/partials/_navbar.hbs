@@ -52,11 +52,23 @@
         <button id="openSearchBtn" onclick="openSearch()">
             <span id="openSearch" class="material-icons toggle-event">search</span>
         </button>
+        
+        {{#if (noEqual user)}}
+            <a href="/create" class="createBtn">
+                Create
+            </a>
 
-        <a href="/auth/signin" class="loginBtn">
-            <span class="material-icons">account_circle</span>
-            Login
-        </a>
+            {{!-- Profile Picture,, to be replaced when user profile is made --}}
+            <a href="#account" class="profileBtn">
+                <span class="material-icons">account_circle</span>
+            </a>
+
+        {{else}}
+            <a href="/auth/signin" class="loginBtn">
+                <span class="material-icons">account_circle</span>
+                Login
+            </a>
+        {{/if}}
     </div>    
 </nav>
 
