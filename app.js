@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const {engine} = require('express-handlebars');
 const session = require('express-session');
@@ -15,11 +16,20 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.engine('hbs', engine({
-    defaultLayout: 'main',
-    extname: '.hbs',
-    layoutsDir: path.join(__dirname, 'views/layouts')
+// helper
+const { noEqual } = require("./helpers/hbs");
+
+app.engine(
+    'hbs',
+    engine({
+        helpers: {
+            noEqual
+        },
+        defaultLayout: 'main',
+        extname: '.hbs',
+        layoutsDir: path.join(__dirname, 'views/layouts')
 }));
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
