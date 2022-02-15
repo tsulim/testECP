@@ -1,0 +1,42 @@
+{
+  "name": "enterprise_cloud_project",
+  "version": "1.0.0",
+  "description": "NFTs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-express": "nodemon app.js",
+    "watch-sass": "sass --watch sass/main.scss:public/css/main.css",
+    "dev": "concurrently -c yellow,#cc6699 \"npm:watch-*\" -s -k"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sohweirong/ECP.git"
+  },
+  "author": "ryan_xiujia_yongyudh_weirong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sohweirong/ECP/issues"
+  },
+  "homepage": "https://github.com/sohweirong/ECP#readme",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.44.0",
+    "@aws-sdk/client-s3": "^3.44.0",
+    "@aws-sdk/client-ssm": "^3.44.0",
+    "aws-sdk": "^2.1046.0",
+    "body-parser": "^1.19.0",
+    "connect-dynamodb": "^2.0.4",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.1",
+    "express-session": "^1.17.2",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.4",
+    "nodemon": "^2.0.15",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0"
+  }
+}

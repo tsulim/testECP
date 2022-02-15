@@ -1,0 +1,31 @@
+$redundant-color: #c0c0c0;
+$secondary-color: #252323;
+$primary-color: #ffffff;
+$background-color: #F5F5F5;
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: jubilat, Helvetica Neue, sans-serif;
+    color: $secondary-color;
+    background-color: $background-color;
+    position: relative;
+    min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+input[type=text],
+input[type=tel],
+input[type=password] {
+    color: $secondary-color;
+}
+
+input[type=text]:focus-visible {
+    outline: 0;
+}

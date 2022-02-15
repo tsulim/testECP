@@ -1,0 +1,801 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: jubilat, Helvetica Neue, sans-serif;
+  color: #252323;
+  background-color: #F5F5F5;
+  position: relative;
+  min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+input[type=text],
+input[type=tel],
+input[type=password] {
+  color: #252323;
+}
+
+input[type=text]:focus-visible {
+  outline: 0;
+}
+
+header.nav {
+  display: none;
+}
+header.nav a.brand:not(.collapse) {
+  display: none;
+}
+header.nav .searchbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+header.nav .searchbar form {
+  transform: scaleX(1);
+  width: auto;
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out;
+  flex-grow: 1;
+  padding-right: 2rem;
+}
+header.nav .searchbar form.collapse {
+  transform: scaleX(0);
+  width: 0;
+}
+header.nav .searchbar form.collapse * {
+  all: unset;
+}
+header.nav .searchbar form.collapse .search-icon::before {
+  all: unset;
+}
+header.nav .searchbar form .search-input {
+  padding-left: 3rem;
+}
+header.nav .searchbar form .search-icon {
+  position: relative;
+  transition: width 0.3s ease-in-out;
+}
+header.nav .searchbar form .search-icon::before {
+  font-family: "Material Icons";
+  content: "\e8b6";
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 1rem;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  font-size: 1.5rem;
+  color: #252323;
+}
+
+nav.nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  flex-direction: row;
+  position: relative;
+}
+nav.nav .top-nav-first-part {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
+}
+nav.nav .top-nav-first-part .navbar {
+  all: unset;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
+  list-style: none;
+}
+nav.nav .top-nav-first-part .navbar li.nav-item {
+  padding: 0.5rem 2rem 0.5rem 2rem;
+}
+nav.nav .top-nav-first-part .navbar li.nav-item .nav-link {
+  font-size: 1.3em;
+}
+nav.nav .top-nav-first-part .navbar li.nav-item .nav-link.active {
+  font-weight: bold;
+}
+nav.nav .top-nav-second-part {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+nav.nav .top-nav-second-part .search-container {
+  flex-grow: 1;
+}
+nav.nav .top-nav-second-part .login-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  background-color: #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  color: #ffffff;
+  font-size: 1.3em;
+  margin-left: 2rem;
+}
+
+nav.nav,
+header.nav {
+  padding: 2rem 5rem;
+}
+@media only screen and (max-width: 1024px) {
+  nav.nav,
+header.nav {
+    padding: 2rem 2rem;
+  }
+}
+nav.nav a,
+header.nav a {
+  color: #252323;
+  text-decoration: none;
+}
+nav.nav a.brand .nav-icon-sm, nav.nav a.brand .nav-icon-lg,
+header.nav a.brand .nav-icon-sm,
+header.nav a.brand .nav-icon-lg {
+  height: 100%;
+}
+nav.nav a.brand .nav-icon-lg,
+header.nav a.brand .nav-icon-lg {
+  width: 69px;
+}
+nav.nav a.brand .nav-icon-sm,
+header.nav a.brand .nav-icon-sm {
+  width: 55px;
+}
+nav.nav .search-input,
+header.nav .search-input {
+  position: relative;
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  font-size: 1.3em;
+}
+nav.nav .search-input::placeholder, nav.nav .search-input::-moz-placeholder, nav.nav .search-input::-webkit-input-placeholder,
+header.nav .search-input::placeholder,
+header.nav .search-input::-moz-placeholder,
+header.nav .search-input::-webkit-input-placeholder {
+  color: #707070;
+}
+nav.nav .search-input:focus-visible,
+header.nav .search-input:focus-visible {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  border: 1px solid #c0c0c0;
+}
+
+.navMain {
+  background-color: #F5F5F5;
+  width: 100%;
+  position: relative;
+  padding: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+.navMain:hover {
+  background-color: white;
+  box-shadow: 0px 10px 99px rgba(0, 0, 0, 0.16);
+}
+.navMain .nav-icon {
+  height: 60px;
+  cursor: pointer;
+}
+.navMain .exploreBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: inherit;
+  border: none;
+  margin-left: 3rem;
+  cursor: pointer;
+  color: #252323;
+  text-decoration: none;
+  transition: all 0.3s ease-in;
+}
+.navMain .exploreBtn:hover {
+  color: #70798C;
+}
+.navMain .searchBar {
+  position: relative;
+  width: 100%;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  color: #25232380;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.navMain .searchBar #searchInput {
+  background-image: url(https://www.w3schools.com/howto/searchicon.png);
+  background-position: 18px 10px;
+  background-repeat: no-repeat;
+  padding: 0.5rem 2rem 0.5rem 3rem;
+  border: none;
+  position: relative;
+  width: 100%;
+  font-size: 1.3em;
+  color: #25232380;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-family: "jubilat";
+}
+.navMain .loginContainer {
+  margin-left: 15%;
+  transition: all 0.5s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+}
+.navMain .loginContainer #openSearchBtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.navMain .loginContainer #openSearchBtn:hover {
+  color: #70798C;
+}
+.navMain .loginContainer #openSearchBtn #openSearch {
+  display: none;
+}
+.navMain .loginContainer .createBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .createBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .loginBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  margin-left: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .loginBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .profileBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.navMain .loginContainer .profileBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  margin-left: 3rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+.modal .modalContent {
+  margin: 10% auto;
+  /* 15% from the top and centered */
+  padding-bottom: 55px;
+  border: none;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+  animation-name: modalOpen;
+  animation-duration: 1.2s;
+}
+.modal .modalContent .modalSearchBar {
+  position: relative;
+  width: 100%;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  color: #25232380;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.modal .modalContent .modalSearchBar #searchInput {
+  background-image: url(https://www.w3schools.com/howto/searchicon.png);
+  background-position: 18px 10px;
+  background-repeat: no-repeat;
+  padding: 0.5rem 2rem 0.5rem 3rem;
+  border: none;
+  position: relative;
+  width: 100%;
+  font-size: 1.3em;
+  color: #25232380;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-family: "jubilat";
+}
+
+@keyframes modalOpen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 1360px) {
+  .navMain .loginContainer {
+    margin-left: 5%;
+  }
+  .navMain .loginContainer #openSearchBtn #openSearch {
+    display: none;
+  }
+  .navMain .loginContainer .profileBtn {
+    margin-left: 1rem;
+  }
+  .navMain .loginContainer .profileBtn:hover {
+    margin-left: 1rem;
+  }
+  .navMain .searchBar {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 1048px) {
+  .navMain {
+    display: inline-flex;
+  }
+  .navMain .searchBar {
+    background-color: transparent;
+    border: none;
+  }
+  .navMain .searchBar #searchInput {
+    display: none;
+  }
+  .navMain .loginContainer {
+    margin-left: 0px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .navMain .loginContainer #openSearchBtn #openSearch {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  .navMain .loginContainer .loginBtn {
+    margin-left: 0px;
+  }
+  .navMain .loginContainer .loginBtn:hover {
+    margin-left: 0px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  header.nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  nav.nav {
+    display: none;
+  }
+
+  .navMain {
+    display: none;
+  }
+
+  #searchModal {
+    display: none;
+  }
+}
+footer.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #252323;
+}
+@media only screen and (max-width: 768px) {
+  footer.footer {
+    background-color: #ffffff;
+  }
+}
+footer.footer div.content {
+  color: #ffffff;
+  padding: 0rem 5rem;
+}
+@media only screen and (max-width: 1024px) {
+  footer.footer div.content {
+    padding: 0rem 2rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  footer.footer div.content {
+    display: none;
+  }
+}
+footer.footer div.content p {
+  color: #c0c0c0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+footer.footer div.content p b {
+  color: #ffffff;
+}
+footer.footer nav.bottom-nav {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  footer.footer nav.bottom-nav {
+    display: grid;
+    width: 100%;
+    height: 3.4rem;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+}
+footer.footer nav.bottom-nav .bottom-nav-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex-direction: column;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #252323;
+  width: 100%;
+  height: 100%;
+}
+footer.footer nav.bottom-nav .bottom-nav-item.active {
+  background-color: #252323;
+  color: #ffffff;
+}
+footer.footer nav.bottom-nav .bottom-nav-item p {
+  all: unset;
+}
+
+.container {
+  width: 100%;
+  padding: 1rem 3rem 3rem 3rem;
+}
+.container .topPart {
+  display: grid;
+}
+.container .topPart .backBtn {
+  font-size: 1.3em;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 999rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+.container .topPart .backBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 999rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.container .topPart .pageName {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+.container .bottomPart {
+  padding-top: 2rem;
+  padding-left: 15%;
+  padding-right: 15%;
+  margin-bottom: 5rem;
+}
+.container .bottomPart .container {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  padding: 3rem;
+  font-family: "jubilat";
+}
+.container .bottomPart .container :focus-visible {
+  outline: -webkit-focus-ring-color auto 1px !important;
+  outline-offset: 0px;
+}
+.container .bottomPart .container ::placeholder {
+  font-family: "jubilat";
+}
+.container .bottomPart .container .form-group {
+  text-align: center;
+  font-size: 1.5rem;
+  display: grid;
+  justify-items: center;
+  margin-top: 0.5rem;
+}
+.container .bottomPart .container .form-group input {
+  height: calc(1.5em + 0.75rem + 2px);
+  width: 70% !important;
+}
+.container .bottomPart .container .form-group .form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #EBEBEB;
+  background-clip: padding-box;
+  border: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.container .bottomPart .container .form-group .uploadBtn {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding: 5rem;
+  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+.container .bottomPart .container .form-group .uploadBtn label {
+  cursor: pointer;
+}
+.container .bottomPart .container .form-group .uploadBtn .material-icons {
+  font-size: 3rem;
+}
+.container .bottomPart .container .form-group .uploadBtn.dragging {
+  background-image: none !important;
+}
+.container .bottomPart .container .form-group .hasImage {
+  padding: 10rem !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center center;
+}
+.container .bottomPart .container .form-group #mediaFile {
+  display: block;
+}
+.container .bottomPart .container .createBtn {
+  font-size: 1rem;
+  font-family: "jubilat";
+  background: #252323;
+  border: 1px solid #252323;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+.container .bottomPart .container .createBtn:hover {
+  color: #252323;
+  position: relative;
+  border-radius: 0.5rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.5rem 2rem 0.5rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+}
+.container .bottomPart .container #mediaFile {
+  position: absolute;
+  top: -1000px;
+}
+.container .bottomPart .emptyContainer {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 3rem;
+  font-family: "jubilat";
+  font-size: 1.3em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.container .bottomPart .emptyContainer a {
+  text-decoration: none;
+  color: #252323;
+}
+.container .bottomPart .emptyContainer a .noCollabBtn {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  padding: 3rem;
+  font-family: "jubilat";
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.container .bottomPart .emptyContainer a .noCollabBtn .material-icons {
+  font-size: 4rem;
+}
+.container .bottomPart .emptyContainer a .noCollabBtn label {
+  cursor: pointer;
+}
+.container .bottomPart .emptyContainer a .collabBtn {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.16);
+  padding: 3rem;
+  font-family: "jubilat";
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.container .bottomPart .emptyContainer a .collabBtn .material-icons {
+  font-size: 4rem;
+}
+.container .bottomPart .emptyContainer a .collabBtn label {
+  cursor: pointer;
+}
+
+.toggle-search {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=main.css.map */

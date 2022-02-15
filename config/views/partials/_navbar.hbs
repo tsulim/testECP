@@ -1,0 +1,81 @@
+<header class="nav">
+    <a class="brand collapse top-nav-search">
+        <image class="nav-icon-sm" src="/images/Icon.png" alt="ArTion Icon"/>
+    </a>
+    <div class="searchbar">
+        <form class="collapse top-nav-search" action="/search" method="post">
+            <div class="search-icon">
+                <input class="search-input" type="text" placeholder="Search NFTs" name="search" />
+            </div>
+        </form>
+        <span class="material-icons toggle-event" data-open-icon="close" data-close-icon="search" data-toggle-targets=".top-nav-search">search</span>
+    </div>
+</header>
+
+
+{{!-- <nav class="nav">
+    <div class="top-nav-first-part">
+        <a class="brand">
+            <image class="nav-icon-lg" src="/images/Icon.png" alt="ArTion Icon"/>
+        </a>
+        <ul class="navbar">
+            <li class="nav-item">
+                <a class="nav-link">
+                    Explore
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="top-nav-second-part">
+        <div class="nav-item search-container">
+            <form action="/search" method="post">
+                <input class="search-input" type="text" placeholder="Search NFTs" name="search" />
+            </form>
+        </div>
+        <a class="nav-link login-btn">
+            <span class="material-icons">person</span>&nbsp;&nbsp;Login
+        </a>
+    </div>
+</nav> --}}
+
+<nav class="navMain">
+    <div>
+        <a href="/">
+            <image class="nav-icon" src="/images/Icon.png" alt="ArTion Icon"/>
+        </a>
+    </div>
+    <div><a href="#Explore" class="exploreBtn">Explore</a></div>
+    <div class="searchBar">
+        <input type="text" name="" id="searchInput" placeholder="Search through our catalogue now" autofocus="">
+    </div>
+    <div class="loginContainer">
+        <button id="openSearchBtn" onclick="openSearch()">
+            <span id="openSearch" class="material-icons toggle-event">search</span>
+        </button>
+        
+        {{#if (noEqual user)}}
+            <a href="/create" class="createBtn">
+                Create
+            </a>
+
+            {{!-- Profile Picture,, to be replaced when user profile is made --}}
+            <a href="#account" class="profileBtn">
+                <span class="material-icons">account_circle</span>
+            </a>
+
+        {{else}}
+            <a href="/auth/signin" class="loginBtn">
+                <span class="material-icons">account_circle</span>
+                Login
+            </a>
+        {{/if}}
+    </div>    
+</nav>
+
+<div id="searchModal" class="modal">
+    <div class="modalContent">
+        <div class="modalSearchBar">
+            <input type="text" name="" id="searchInput" placeholder="Search through our catalogue now" autofocus="">
+        </div>
+    </div>
+</div>
